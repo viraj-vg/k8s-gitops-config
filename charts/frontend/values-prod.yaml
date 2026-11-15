@@ -1,0 +1,25 @@
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: true
+  hosts:
+    - host: frontend-prod.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+config:
+  APP_ENV: "prod"
+  LOG_LEVEL: "info"
