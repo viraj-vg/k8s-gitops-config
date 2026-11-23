@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-restarts
+  namespace: monitoring
+spec:
+  groups:
+    - name: pod-restarts
+      rules:
+        - alert: PodRestartingTooOften
+          expr: increase(kube_pod_container_status_restarts_total{namespace=~'staging|production'}[5m]) > 3
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod {{ $labels.pod }} restarted more than 3 times in 5 minutes"
+            description: "Namespace {{ $labels.namespace }}. See the monitoring runbook in the README."
