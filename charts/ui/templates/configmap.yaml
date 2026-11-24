@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}
+data:
+  APP_VERSION: {{ .Values.image.tag | quote }}
+  {{- toYaml .Values.config | nindent 2 }}

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ui
+description: Store user interface
+version: 0.1.0
+appVersion: "1.0.0"

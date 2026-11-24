@@ -1,0 +1,36 @@
+replicaCount: 1
+
+image:
+  repository: devopsviraj/retail-ui
+  tag: "1.0.0"
+
+port: 8080
+healthPath: /actuator/health
+probeDelaySeconds: 60
+
+config:
+  RETAIL_UI_ENDPOINTS_CATALOG: "http://catalog:8080"
+  RETAIL_UI_ENDPOINTS_CARTS: "http://cart:8080"
+  RETAIL_UI_ENDPOINTS_ORDERS: "false"
+  RETAIL_UI_ENDPOINTS_CHECKOUT: "false"
+
+secret:
+  PLACEHOLDER_KEY: "not-a-real-secret"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: true
+  host: ui.local
