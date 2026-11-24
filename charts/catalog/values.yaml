@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: devopsviraj/retail-catalog
+  tag: "1.0.0"
+
+port: 8080
+healthPath: /health
+probeDelaySeconds: 10
+
+config:
+  RETAIL_CATALOG_PERSISTENCE_PROVIDER: "in-memory"
+
+secret:
+  PLACEHOLDER_KEY: "not-a-real-secret"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: false
+  host: catalog.local
